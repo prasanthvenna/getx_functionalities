@@ -19,6 +19,10 @@ void main() {
           name: '/FirstScreen',
           page: () => const FirstScreen(),
         ),
+        GetPage(
+          name: '/PickImage',
+          page: () => const FirstScreen(),
+        ),
       ],
       fallbackLocale: const Locale('english','US'),
       translations: Language(),

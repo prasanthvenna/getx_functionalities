@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_utilities_tutorial/controllers/fav_controller.dart';
+import 'package:getx_utilities_tutorial/controllers/pickimage_controller.dart';
 import 'package:getx_utilities_tutorial/controllers/theme_controller.dart';
-import 'package:getx_utilities_tutorial/utils/theme_colors.dart';
+// import 'package:getx_utilities_tutorial/utils/theme_colors.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -11,6 +14,8 @@ class HomeScreen extends StatelessWidget {
       Get.put(UpdateThemeController());
 
   final FavouriteItems favitems = Get.put(FavouriteItems());
+
+  final PickImageController imagecontroller = Get.put(PickImageController());
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +119,7 @@ class HomeScreen extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      
+
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: SizedBox(
@@ -157,6 +162,32 @@ class HomeScreen extends StatelessWidget {
           //     ),
           //   ),
           // ),
+          Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Center(
+              child: Obx(
+                () => Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: imagecontroller.imagePath.isNotEmpty
+                          ? FileImage(
+                              File(
+                                imagecontroller.imagePath.toString(),
+                              ),
+                            )
+                          : null,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        imagecontroller.getImage();
+                      },
+                      child: const Text('Pick Image'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Obx(
             () => Text("${themeController.isDarkMode.value}"),
           ),
